@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefa_1_escuro</title>
+    <link rel="stylesheet" href="Light.css">
+
+    <style>
+        .text-error {
+            color: red;
+            background-color: brown;
+            padding: 10px;
+            width: 50%;
+        }
+
+        .text-success {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Minha Página Simples</h1>
+        <button type="button" id="mudar_tema">❤️</button>
+        <p id="mensagemErroId"></p>
+        <h2>Formulário de Cadastro</h2>
+        <div class="formulario">
+            <p>Nome: </p>
+            <label for="name"></label>
+            <input type="name" id="name" placeholder="Digite seu nome" required><br>
+            <p>Email: </p>
+            <label for="email"></label>
+            <input type="email" id="email" placeholder="Digite seu email" required><br>
+            <p>Data de nascimento: </p>
+            <label for="date"></label>
+            <input type="date" id="date" required><br>
+            
+            <p>Cor favorita: </p>
+            <label for="cor"></label>
+            <input type="color" id="color" required> <br>
+            <button type="submit" onclick="enviarDados()">Enviar</button>
+        </div>
+        <div>
+            <h4>Minha Tabela de Informações</h4>
+            <table border="1">
+                <tr>
+                    <th>Cor Favorita</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Data de nascimento</th>
+
+                </tr>
+            </table>
+        </div>
+        <div>
+            <h5>Lista de Tarefas</h5>
+            <ul>
+                <li>Estudar HTML</li>
+                <li>Práticar CSS</li>
+                <li>Estudar Javascript</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+<script>
+    document.getElementById("mudar_tema").addEventListener('click', function () {
+        let tema = document.getElementsByTagName('link')[0];
+        let href = tema.getAttribute('href');
+        if (href === 'Light.css') {
+            tema.setAttribute('href', 'Dark.css');
+        } else {
+
+            tema.setAttribute('href', 'Light.css');
+        }
+    });
+
+    function enviarDados() {
+        let nameValue = document.getElementById('name').value;
+        let emailValue = document.getElementById('email').value;
+        let dataValue = document.getElementById('date').value;
+        let colorValue = document.getElementById('color').value;
+
+        if (HasValue(nameValue) && HasValue(emailValue) && HasValue(dataValue)) {
+            //cria uma linha 
+            var linhaTR = document.createElement('tr');
+            linhaTR.setAttribute('style', 'color:' + colorValue);
+
+            //inclui o nome na celula da linha da tabela
+
+            createCell(linhaTR, null, colorValue);
+            createCell(linhaTR, nameValue);
+            createCell(linhaTR, emailValue);
+            createCell(linhaTR, dataValue);
+
+            var table = document.getElementsByTagName('table')[0];
+            table.appendChild(linhaTR);
+
+            limpar();
+
+            //isso vai em uma função
+            let mensagem = document.getElementById('mensagemErroId');
+
+            mensagem.innerText = 'Dados inseridos com sucesso!';
+            mensagem.setAttribute('class', 'text-success');
+            //até aqui
+        }
+        else {
+            //isso aqui também
+            let mensagem = document.getElementById('mensagemErroId');
+
+            mensagem.innerText = 'Insira seu dados corretamente!';
+            mensagem.setAttribute('class', 'text-error');
+
+            document.getElementById('name').setAttribute('style', 'border-color: #dc3545');
+            //até aqui
+        }
+    }
+
+    function limpar() {
+        clearElement('name', '');
+        clearElement('email', '');
+        clearElement('date','');
+        clearElement('color', '#000000');      
+    }
+
+    function clearElement(elementId, value) {
+        document.getElementById(elementId).value = value;
+        document.getElementById(elementId).setAttribute('style', 'border-color: #000000');       
+
+    }
+
+    function createCell(linhaTR, textValue, backgroundColor) {
+        //console.log('no caso de: ' + textValue + ' o backgroundColor é: ' + backgroundColor);
+
+        var celulaTD = document.createElement('td');
+        celulaTD.textContent = textValue;
+
+        if (HasValue(backgroundColor))
+            celulaTD.setAttribute('style', 'background-color:' + backgroundColor);
+
+        //add celula na linha
+        linhaTR.appendChild(celulaTD);
+    }
+
+    function HasValue(value) {
+        let isInvalid = value == null || value == 'undefined' || value == '';
+        console.log(isInvalid);
+
+        return !isInvalid;
+
+    }
+</script>
+
+</html>

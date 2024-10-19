@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: #333;
+    }
+    .label {
+        color: #333;
+    }
+    p{
+        margin-bottom: 1px;
+    }
+    button{
+        margin-top: 20px;
+    }
+    h4{
+        font-size: 25px;
+    }
+    table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th,td{
+        padding: 8px;
+        text-align: 3px;
+    }
